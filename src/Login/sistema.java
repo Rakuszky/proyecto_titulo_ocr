@@ -2,10 +2,6 @@ package Login;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -13,7 +9,6 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import static org.opencv.imgproc.Imgproc.COLOR_BGR2GRAY;
 import org.opencv.objdetect.CascadeClassifier;
@@ -29,6 +24,10 @@ public class sistema extends javax.swing.JFrame {
     private DaemonThread myThread = null;
     int count = 0;
     VideoCapture captura = null;
+    
+    //Variables de prueba
+    
+    String patente_prueba = "LPYY50";
 
     Mat frame = new Mat();
     MatOfByte mem = new MatOfByte();
@@ -76,6 +75,7 @@ public class sistema extends javax.swing.JFrame {
 
     public sistema() {
         initComponents();
+        etiquetaPatenteSistemaBuscar.setText(patente_prueba);  //Variable de prueba
     }
 
     /**
@@ -88,13 +88,22 @@ public class sistema extends javax.swing.JFrame {
     private void initComponents() {
 
         panelDatos = new javax.swing.JPanel();
-        etiquetaTelefonoSistema = new javax.swing.JLabel();
-        etiquetaRunSistema = new javax.swing.JLabel();
+        etiquetaPatenteSistema = new javax.swing.JLabel();
+        etiquetaPatenteSistemaBuscar = new javax.swing.JLabel();
         etiquetaNombreSistema = new javax.swing.JLabel();
         etiquetaApellidoSistema = new javax.swing.JLabel();
         etiquetaBlockSistema = new javax.swing.JLabel();
         etiquetaDepartamentoSistema = new javax.swing.JLabel();
         etiquetaEstacionamientoSistema = new javax.swing.JLabel();
+        etiquetaTelefonoSistema1 = new javax.swing.JLabel();
+        etiquetaRunSistema = new javax.swing.JLabel();
+        etiquetaRunSistema2 = new javax.swing.JLabel();
+        etiquetaRunSistema3 = new javax.swing.JLabel();
+        etiquetaRunSistema4 = new javax.swing.JLabel();
+        etiquetaRunSistema5 = new javax.swing.JLabel();
+        etiquetaRunSistema6 = new javax.swing.JLabel();
+        etiquetaRunSistema7 = new javax.swing.JLabel();
+        etiquetaRunSistema8 = new javax.swing.JLabel();
         panelVideo = new javax.swing.JPanel();
         iniciarVideo = new javax.swing.JButton();
         pausarVideo = new javax.swing.JButton();
@@ -105,22 +114,25 @@ public class sistema extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(810, 570));
-        setMinimumSize(new java.awt.Dimension(810, 570));
+        setMaximumSize(new java.awt.Dimension(830, 570));
+        setMinimumSize(new java.awt.Dimension(830, 570));
+        setPreferredSize(new java.awt.Dimension(830, 570));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        etiquetaTelefonoSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        etiquetaTelefonoSistema.setText("Telefono:");
-        panelDatos.add(etiquetaTelefonoSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+        etiquetaPatenteSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        etiquetaPatenteSistema.setText("Patente");
+        panelDatos.add(etiquetaPatenteSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
-        etiquetaRunSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        etiquetaRunSistema.setText("RUN:");
-        panelDatos.add(etiquetaRunSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        etiquetaPatenteSistemaBuscar.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaPatenteSistemaBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaPatenteSistemaBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaPatenteSistemaBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 130, 30));
 
         etiquetaNombreSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        etiquetaNombreSistema.setText("Nombre");
+        etiquetaNombreSistema.setText("Nombre:");
         panelDatos.add(etiquetaNombreSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         etiquetaApellidoSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -139,7 +151,46 @@ public class sistema extends javax.swing.JFrame {
         etiquetaEstacionamientoSistema.setText("Estacionamiento:");
         panelDatos.add(etiquetaEstacionamientoSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
+        etiquetaTelefonoSistema1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        etiquetaTelefonoSistema1.setText("Telefono:");
+        panelDatos.add(etiquetaTelefonoSistema1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+
+        etiquetaRunSistema.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        etiquetaRunSistema.setText("RUN:");
+        panelDatos.add(etiquetaRunSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        etiquetaRunSistema2.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 160, 20));
+
+        etiquetaRunSistema3.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 130, 20));
+
+        etiquetaRunSistema4.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 130, 20));
+
+        etiquetaRunSistema5.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 150, 20));
+
+        etiquetaRunSistema6.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 80, 20));
+
+        etiquetaRunSistema7.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 60, 20));
+
+        etiquetaRunSistema8.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
+        etiquetaRunSistema8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelDatos.add(etiquetaRunSistema8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 130, 20));
+
+        getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 231, 360));
+
         panelVideo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 0, 556, 322));
 
         iniciarVideo.setText("Iniciar");
         iniciarVideo.addActionListener(new java.awt.event.ActionListener() {
@@ -147,13 +198,15 @@ public class sistema extends javax.swing.JFrame {
                 iniciarVideoActionPerformed(evt);
             }
         });
+        getContentPane().add(iniciarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, -1, -1));
 
-        pausarVideo.setText("Pausar");
+        pausarVideo.setText("Salir del Sistema");
         pausarVideo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pausarVideoActionPerformed(evt);
             }
         });
+        getContentPane().add(pausarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, -1, -1));
 
         jMenu1.setText("Archivo");
 
@@ -175,35 +228,6 @@ public class sistema extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(iniciarVideo)
-                .addGap(104, 104, 104)
-                .addComponent(pausarVideo)
-                .addGap(162, 162, 162))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                    .addComponent(panelVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(iniciarVideo)
-                    .addComponent(pausarVideo))
-                .addGap(0, 178, Short.MAX_VALUE))
-        );
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -224,63 +248,33 @@ public class sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_iniciarVideoActionPerformed
 
     private void pausarVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarVideoActionPerformed
-        myThread.runnable = false;
-        pausarVideo.setEnabled(false);
-        iniciarVideo.setEnabled(true);
-
-        captura.release();
+        
+        btnSalir();
+        
     }//GEN-LAST:event_pausarVideoActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        //System.out.println("Hola");
-        //sistema janela = new sistema();
-        // janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //janela.setSize(800, 800);
-        //janela.setVisible(true);
-        // janela.mostrarVideo();        
+        
         java.awt.EventQueue.invokeLater(() -> {
             new sistema().setVisible(true);
         });
 
     }
-
-   /* public void mostrarVideo() {
-        Mat video = new Mat();
-        VideoCapture captura = new VideoCapture(0);
-        if (captura.isOpened()) {
-            while (true) {
-                captura.read(video);
-                if (!video.empty()) {
-                    setSize(video.width() + 50, video.height() + 70);
-
-                    Mat imagemColorida = video;
-                    Mat imagenGris = new Mat();
-                    Imgproc.cvtColor(imagemColorida, imagenGris, COLOR_BGR2GRAY);
-                    String base = "C:\\Program Files\\opencv\\sources\\data\\haarcascades";
-                    CascadeClassifier classificador
-                            = new CascadeClassifier(base + "\\haarcascade_frontalcatface.xml");
-                    MatOfRect facesDetectadas = new MatOfRect();
-                    classificador.detectMultiScale(imagenGris, facesDetectadas);
-
-                    for (Rect rect : facesDetectadas.toArray()) {
-                        Imgproc.rectangle(imagemColorida, new Point(rect.x, rect.y),
-                                new Point(rect.x + rect.width, rect.y + rect.height),
-                                new Scalar(0, 255, 255), 2);
-                    }
-
-                    BufferedImage imagem = new utilidad().convertMatToImage(video);
-                    Graphics g = panelVideo.getGraphics();
-                    g.drawImage(imagem, 10, 10, imagem.getWidth(), imagem.getHeight(), null);
-                }
-            }
+    
+    public void btnSalir(){
+        if(!iniciarVideo.isEnabled()){
+            myThread.runnable = false;
+            pausarVideo.setEnabled(true);
+            iniciarVideo.setEnabled(false);
+            captura.release();
+            System.exit(0);
+        } else {
+            System.exit(0);
         }
-
-    }*/
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel etiquetaApellidoSistema;
@@ -288,8 +282,17 @@ public class sistema extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaDepartamentoSistema;
     private javax.swing.JLabel etiquetaEstacionamientoSistema;
     private javax.swing.JLabel etiquetaNombreSistema;
+    private javax.swing.JLabel etiquetaPatenteSistema;
+    private javax.swing.JLabel etiquetaPatenteSistemaBuscar;
     private javax.swing.JLabel etiquetaRunSistema;
-    private javax.swing.JLabel etiquetaTelefonoSistema;
+    private javax.swing.JLabel etiquetaRunSistema2;
+    private javax.swing.JLabel etiquetaRunSistema3;
+    private javax.swing.JLabel etiquetaRunSistema4;
+    private javax.swing.JLabel etiquetaRunSistema5;
+    private javax.swing.JLabel etiquetaRunSistema6;
+    private javax.swing.JLabel etiquetaRunSistema7;
+    private javax.swing.JLabel etiquetaRunSistema8;
+    private javax.swing.JLabel etiquetaTelefonoSistema1;
     private javax.swing.JButton iniciarVideo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
