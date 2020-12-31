@@ -9,6 +9,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import static org.opencv.imgproc.Imgproc.COLOR_BGR2GRAY;
 import org.opencv.objdetect.CascadeClassifier;
@@ -31,6 +32,7 @@ public class sistema extends javax.swing.JFrame {
 
     Mat frame = new Mat();
     MatOfByte mem = new MatOfByte();
+    String output = "D:\\image.jpg";
 
     //Clase Daemon
     class DaemonThread implements Runnable {
@@ -54,12 +56,14 @@ public class sistema extends javax.swing.JFrame {
                                 CascadeClassifier classificador
                                         = new CascadeClassifier(base + "\\haarcascade_frontalcatface.xml");
                                 MatOfRect facesDetectadas = new MatOfRect();
-                                classificador.detectMultiScale(imagenGris, facesDetectadas);
+                                classificador.detectMultiScale(imagenGris, facesDetectadas);                              
 
                                 for (Rect rect : facesDetectadas.toArray()) {
                                     Imgproc.rectangle(imagemColorida, new Point(rect.x, rect.y),
                                             new Point(rect.x + rect.width, rect.y + rect.height),
                                             new Scalar(0, 255, 255), 2);
+                                    Imgcodecs.imwrite(output, imagenGris);
+                                    
                                 }
 
                                 BufferedImage imagem = new utilidad().convertMatToImage(frame);
