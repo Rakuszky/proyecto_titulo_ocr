@@ -68,8 +68,9 @@ public class agregarPropietarios extends javax.swing.JFrame {
         btnAgregarPropietario = new javax.swing.JButton();
         etiquetaTelefonoAgregar1 = new javax.swing.JLabel();
         txtEstacionamientoAgregar = new javax.swing.JTextField();
+        botonSalirAgregarPropietarios = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Propietarios");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -166,7 +167,7 @@ public class agregarPropietarios extends javax.swing.JFrame {
                 btnAgregarPropietarioActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregarPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 120, 40));
+        jPanel1.add(btnAgregarPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 120, 40));
 
         etiquetaTelefonoAgregar1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etiquetaTelefonoAgregar1.setText("Estacionamiento:");
@@ -179,6 +180,14 @@ public class agregarPropietarios extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtEstacionamientoAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 150, -1));
+
+        botonSalirAgregarPropietarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1146194_thumb.png"))); // NOI18N
+        botonSalirAgregarPropietarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirAgregarPropietariosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonSalirAgregarPropietarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 40, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 350));
 
@@ -229,6 +238,12 @@ public class agregarPropietarios extends javax.swing.JFrame {
         txtTelefonoAgregar.setText(null);
     }//GEN-LAST:event_btnAgregarPropietarioActionPerformed
 
+    private void botonSalirAgregarPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirAgregarPropietariosActionPerformed
+        agregarPropietarios form2 = new agregarPropietarios();
+                    form2.setVisible(false);
+                    this.dispose();
+    }//GEN-LAST:event_botonSalirAgregarPropietariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +280,7 @@ public class agregarPropietarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSalirAgregarPropietarios;
     private javax.swing.JButton btnAgregarPropietario;
     private javax.swing.JLabel etiquetaApellidoAgregar;
     private javax.swing.JLabel etiquetaBlockAgregar;

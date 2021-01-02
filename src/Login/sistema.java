@@ -47,14 +47,14 @@ public class sistema extends javax.swing.JFrame {
                         while (true) {
                             captura.read(frame);
                             if (!frame.empty()) {
-                                setSize(frame.width() + 50, frame.height() + 70);
+                                setSize(frame.width() +50, frame.height() + 70);
 
                                 Mat imagemColorida = frame;
                                 Mat imagenGris = new Mat();
                                 Imgproc.cvtColor(imagemColorida, imagenGris, COLOR_BGR2GRAY);
                                 String base = "C:\\Program Files\\opencv\\sources\\data\\haarcascades";
                                 CascadeClassifier classificador
-                                        = new CascadeClassifier(base + "\\haarcascade_frontalcatface.xml");
+                                        = new CascadeClassifier(base + "\\haarcascade_russian_plate_number.xml");
                                 MatOfRect facesDetectadas = new MatOfRect();
                                 classificador.detectMultiScale(imagenGris, facesDetectadas);                              
 
@@ -62,13 +62,13 @@ public class sistema extends javax.swing.JFrame {
                                     Imgproc.rectangle(imagemColorida, new Point(rect.x, rect.y),
                                             new Point(rect.x + rect.width, rect.y + rect.height),
                                             new Scalar(0, 255, 255), 2);
-                                    Imgcodecs.imwrite(output, imagenGris);
+                                    Imgcodecs.imwrite(output, imagemColorida);
                                     
                                 }
 
                                 BufferedImage imagem = new utilidad().convertMatToImage(frame);
                                 Graphics g = panelVideo.getGraphics();
-                                g.drawImage(imagem, 10, 10, imagem.getWidth(), imagem.getHeight(), null);
+                                g.drawImage(imagem, 0, 0, imagem.getWidth(), imagem.getHeight(), null);
                             }
                         }
                     }
@@ -115,9 +115,11 @@ public class sistema extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Control Vehicular");
         setMaximumSize(new java.awt.Dimension(830, 570));
         setMinimumSize(new java.awt.Dimension(830, 570));
         setPreferredSize(new java.awt.Dimension(830, 570));
@@ -193,8 +195,9 @@ public class sistema extends javax.swing.JFrame {
 
         getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 231, 360));
 
+        panelVideo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelVideo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 0, 556, 322));
+        getContentPane().add(panelVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 10, 560, 450));
 
         iniciarVideo.setText("Iniciar");
         iniciarVideo.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +205,7 @@ public class sistema extends javax.swing.JFrame {
                 iniciarVideoActionPerformed(evt);
             }
         });
-        getContentPane().add(iniciarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, -1, -1));
+        getContentPane().add(iniciarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, -1, -1));
 
         pausarVideo.setText("Salir del Sistema");
         pausarVideo.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +213,7 @@ public class sistema extends javax.swing.JFrame {
                 pausarVideoActionPerformed(evt);
             }
         });
-        getContentPane().add(pausarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, -1, -1));
+        getContentPane().add(pausarVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 470, -1, -1));
 
         jMenu1.setText("Archivo");
 
@@ -225,6 +228,15 @@ public class sistema extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Editar");
+
+        jMenuItem1.setText("Añadir Propietarios");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Acerca de");
@@ -241,7 +253,7 @@ public class sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSalirActionPerformed
 
     private void iniciarVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarVideoActionPerformed
-        captura = new VideoCapture(0);
+        captura = new VideoCapture(2);
         myThread = new DaemonThread();
         Thread t = new Thread(myThread);
         t.setDaemon(true);
@@ -256,6 +268,12 @@ public class sistema extends javax.swing.JFrame {
         btnSalir();
         
     }//GEN-LAST:event_pausarVideoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        agregarPropietarios form2 = new agregarPropietarios();
+                    form2.setVisible(true);
+                    //this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +320,7 @@ public class sistema extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuSalir;
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelVideo;
