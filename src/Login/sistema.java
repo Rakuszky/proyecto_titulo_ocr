@@ -2,6 +2,9 @@ package Login;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -25,14 +28,15 @@ public class sistema extends javax.swing.JFrame {
     private DaemonThread myThread = null;
     int count = 0;
     VideoCapture captura = null;
-    
+
     //Variables de prueba
-    
     String patente_prueba = "LPYY50";
 
     Mat frame = new Mat();
     MatOfByte mem = new MatOfByte();
     String output = "D:\\image.jpg";
+    Mat imagenGris = new Mat();
+    int boolDeteccion = 0;
 
     //Clase Daemon
     class DaemonThread implements Runnable {
@@ -47,23 +51,22 @@ public class sistema extends javax.swing.JFrame {
                         while (true) {
                             captura.read(frame);
                             if (!frame.empty()) {
-                                setSize(frame.width() +50, frame.height() + 70);
+                                setSize(frame.width() + 50, frame.height() + 70);
 
                                 Mat imagemColorida = frame;
-                                Mat imagenGris = new Mat();
                                 Imgproc.cvtColor(imagemColorida, imagenGris, COLOR_BGR2GRAY);
                                 String base = "C:\\Program Files\\opencv\\sources\\data\\haarcascades";
                                 CascadeClassifier classificador
                                         = new CascadeClassifier(base + "\\haarcascade_russian_plate_number.xml");
                                 MatOfRect facesDetectadas = new MatOfRect();
-                                classificador.detectMultiScale(imagenGris, facesDetectadas);                              
+                                classificador.detectMultiScale(imagenGris, facesDetectadas);
 
                                 for (Rect rect : facesDetectadas.toArray()) {
                                     Imgproc.rectangle(imagemColorida, new Point(rect.x, rect.y),
                                             new Point(rect.x + rect.width, rect.y + rect.height),
                                             new Scalar(0, 255, 255), 2);
-                                    Imgcodecs.imwrite(output, imagemColorida);
-                                    
+                                    //Imgcodecs.imwrite(output, imagenGris);
+
                                 }
 
                                 BufferedImage imagem = new utilidad().convertMatToImage(frame);
@@ -79,7 +82,7 @@ public class sistema extends javax.swing.JFrame {
 
     public sistema() {
         initComponents();
-        etiquetaPatenteSistemaBuscar.setText(patente_prueba);  //Variable de prueba
+        //etiquetaPatenteSistemaBuscar.setText(patente_prueba);  //Variable de prueba
     }
 
     /**
@@ -261,33 +264,34 @@ public class sistema extends javax.swing.JFrame {
         t.start();
         iniciarVideo.setEnabled(false);  //start button
         pausarVideo.setEnabled(true);  // stop button
+        capturaFoto();
     }//GEN-LAST:event_iniciarVideoActionPerformed
 
     private void pausarVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarVideoActionPerformed
-        
+
         btnSalir();
-        
+
     }//GEN-LAST:event_pausarVideoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         agregarPropietarios form2 = new agregarPropietarios();
-                    form2.setVisible(true);
-                    //this.dispose();
+        form2.setVisible(true);
+        //this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(() -> {
             new sistema().setVisible(true);
         });
 
     }
-    
-    public void btnSalir(){
-        if(!iniciarVideo.isEnabled()){
+
+    public void btnSalir() {
+        if (!iniciarVideo.isEnabled()) {
             myThread.runnable = false;
             pausarVideo.setEnabled(true);
             iniciarVideo.setEnabled(false);
@@ -296,7 +300,20 @@ public class sistema extends javax.swing.JFrame {
         } else {
             System.exit(0);
         }
-    } 
+    }
+    
+    public void capturaFoto() {
+        Timer timer = new Timer();
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                Imgcodecs.imwrite(output, imagenGris);
+            }
+        };
+
+        timer.schedule(tarea, 10000, 10000);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel etiquetaApellidoSistema;
